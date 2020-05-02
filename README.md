@@ -17,7 +17,7 @@
 <img src="https://cdn.discordapp.com/attachments/588323428390666261/706204512939016212/unknown.png" alt="signup" width="200"/> 
 <img src="https://cdn.discordapp.com/attachments/588323428390666261/706205481844211832/unknown.png" alt="search" width="200"/> 
 <img src="https://cdn.discordapp.com/attachments/588323428390666261/706221937952817224/unknown.png" alt="favlist" width="200"/> 
-<img src="https://cdn.discordapp.com/attachments/588323428390666261/706205969318936647/unknown.png" alt="edituser" width="200"/> 
+<img src="https://cdn.discordapp.com/attachments/588323428390666261/706228719534211142/unknown.png" alt="edituser" width="200"/> 
 
 ### Składowe projektu
 * [Vue.js](https://vuejs.org/)
