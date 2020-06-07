@@ -32,7 +32,7 @@ export default {
     changeView: false,
     showFavoritesUsers: false,
     isLoading: false,
-    userData: {}
+    userData: {},
   }),
   components: {
     SearchUser,
