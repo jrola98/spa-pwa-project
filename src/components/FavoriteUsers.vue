@@ -3,12 +3,23 @@
     <div v-if="!editUser">
       <Loader v-if="isLoading === true" />
       <b-container v-else >
+        <b-button @click="showGraphModal()" v-on:click='handleChangeFormClick'>
+          <span v-if="!changeView">Show Graph</span>
+          <span v-else>Close graph</span>
+        </b-button>
+        <Modal
+          v-if="showGraph"
+          :users="this.users"
+          :showModal="this.showGraphModal"
+        />
         <b-row v-for="user in users" :key="user.name " class="shadow-lg favouriteUsers mb-3">
           <div>
             <img :src='user.image' />
           </div> 
           <div>
-            <p>{{user.username}}</p>
+            <b-button @click="handleNameClick(user.username)">
+              <p>{{user.username}}</p>
+            </b-button>
           </div>
           <div>
             <p>{{user.clan || 'No clan'}}</p>
@@ -32,12 +43,6 @@
                 Compare with your account
               </b-button>
             </div>
-            <div>
-              <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                Launch demo modal
-              </button>
-            </div>
           </div>
         </b-row>
       </b-container>
@@ -55,6 +60,12 @@
       />
     </div>
     
+    <div v-if="showUserDetails">
+      <UserDetails 
+        :user="this.focusedUser"
+        :backCallback="this.handleBackToFavoritesListClick"
+      />
+    </div>
   </div>
 </template>
 
@@ -62,6 +73,8 @@
   import Loader from './Loader';
   import EditUserImage from './EditUserImage';
   import CompareToUser from './CompareToUser';
+  import Modal from './Modal';
+  import UserDetails from './UserDetails';
   import firebase from 'firebase';
 
   export default {
@@ -69,16 +82,34 @@
     data: () => ({
       users: [],
       focusedUser: '',
+      changeView: false,
       isLoading: false,
       editUser: false,
       compareToUser: false,
+      showGraph: false,
+      showUserDetails: false,
     }),
     components: {
       Loader,
       EditUserImage,
-      CompareToUser
+      CompareToUser,
+      UserDetails,
+      Modal
     },
     methods: {
+      handleChangeFormClick: function() {
+      this.changeView = !this.changeView;
+      },
+      handleBackToFavoritesListClick: function() {
+        this.showUserDetails = false;
+      },
+      handleNameClick: function(user) {
+        this.focusedUser = user;
+        this.showUserDetails = true;
+      },
+      showGraphModal: function() {
+        this.showGraph = !this.showGraph;
+      },
       handleCompareClick: function(user) {
         this.focusedUser = user;
         this.handleCompareToView();
@@ -123,10 +154,8 @@
         dbRef.doc(user).delete()
           .then(alert("User deleted"))
           .catch(er => console.log(er))
-        this.users.map(x=> console.log(x.username, 'before'))
         const index = this.users.findIndex(item => item.username === user);
         this.users.splice(index, 1);
-        this.users.map(x=> console.log(x.username, 'after'))
         this.isLoading = false;
       },
       setEditUserImageView: async function () {

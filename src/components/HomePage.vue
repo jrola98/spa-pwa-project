@@ -45,7 +45,7 @@ export default {
     showFavoritesUsers: false,
     showRssFeed: false,
     isLoading: false,
-    userData: {}
+    userData: {},
   }),
   components: {
     SearchUser,

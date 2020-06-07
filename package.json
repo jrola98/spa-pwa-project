@@ -17,7 +17,8 @@
     "firebase": "^7.14.2",
     "vue": "^2.6.11",
     "vue-chartjs": "^3.5.0",
-    "vue-rss-feed": "^0.2.4"
+    "vue-rss-feed": "^0.2.4",
+    "vue-js-modal": "^2.0.0-rc.3"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.7.0",
