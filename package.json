@@ -12,9 +12,12 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "bootstrap-vue": "^2.1.0",
+    "chart.js": "^2.9.3",
     "core-js": "^3.6.4",
     "firebase": "^7.14.2",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-chartjs": "^3.5.0",
+    "vue-rss-feed": "^0.2.4"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.7.0",

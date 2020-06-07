@@ -5,7 +5,7 @@
       v-if="isUserLoggedIn"
     />
     <div v-else>
-      <img alt="Codewars logo" src="./assets/img/Codewars.png">
+      <img alt="Codewars logo" :src="require('./assets/img/Codewars.png')">
       <Login
         :setUserSession="this.setUserSession"
         v-if="displayLogin"

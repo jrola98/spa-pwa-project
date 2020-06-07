@@ -17,16 +17,27 @@
             <p>{{user.honor}}</p>
           </div>
           <div class="buttons">
-          <div>
-            <b-button variant="primary" @click="removeUsersFromFavorites(user.username)">
-              <font-awesome-icon icon="user-times" />
-            </b-button>
-          </div>
-          <div>
-            <b-button @click="setEditUserImage(user.username)">
-              <font-awesome-icon icon="user-edit" />
-            </b-button>
-          </div>
+            <div>
+              <b-button variant="primary" @click="removeUsersFromFavorites(user.username)">
+                <font-awesome-icon icon="user-times" />
+              </b-button>
+            </div>
+            <div>
+              <b-button @click="setEditUserImage(user.username)">
+                <font-awesome-icon icon="user-edit" />
+              </b-button>
+            </div>
+            <div>
+              <b-button @click="handleCompareClick(user.username)">
+                Compare with your account
+              </b-button>
+            </div>
+            <div>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                Launch demo modal
+              </button>
+            </div>
           </div>
         </b-row>
       </b-container>
@@ -37,12 +48,20 @@
         :changeView='this.setEditUserImageView'
       />
     </div>
+    <div v-if="this.compareToUser">
+      <CompareToUser 
+        :userToCompare='this.focusedUser'
+        :backCallback='this.handleCompareToView'
+      />
+    </div>
+    
   </div>
 </template>
 
 <script>
   import Loader from './Loader';
   import EditUserImage from './EditUserImage';
+  import CompareToUser from './CompareToUser';
   import firebase from 'firebase';
 
   export default {
@@ -52,12 +71,21 @@
       focusedUser: '',
       isLoading: false,
       editUser: false,
+      compareToUser: false,
     }),
     components: {
       Loader,
-      EditUserImage
+      EditUserImage,
+      CompareToUser
     },
     methods: {
+      handleCompareClick: function(user) {
+        this.focusedUser = user;
+        this.handleCompareToView();
+      },
+      handleCompareToView: function () {
+        this.compareToUser = !this.compareToUser;
+      },
       getFavoriteUsers: async function () {
         const users = this.users;
         const db = firebase.firestore();
@@ -76,10 +104,12 @@
                   url => url,
                   () => `https://robohash.org/${doc.data().username}?set=set3`
                 );
-              users.push({
-                ...doc.data(),
-                image: imageRef
+              if (doc.data().username) {
+                users.push({
+                  ...doc.data(),
+                  image: imageRef
                 })
+              }
             });
           })
           .catch(er => console.log(er))
