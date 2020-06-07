@@ -8,7 +8,7 @@
       </b-form-group>
       <b-button class="reddish" @click="this.saveRssUrl" variant="primary">Save data!</b-button>
     </b-form>    
-    <VueRssFeed v-else :feedUrl="feedUrl" :name="name" :limit="limit"/>
+      <VueRssFeed class="mw-100" v-else :feedUrl="feedUrl" :name="name" :limit="limit"/>
   </div>
 </template>
 
@@ -67,5 +67,6 @@ export default {
   }
 }
 </script>
-
+<style lang="scss" scoped>
+</style>
 // https://cprss.s3.amazonaws.com/frontendfoc.us.xml

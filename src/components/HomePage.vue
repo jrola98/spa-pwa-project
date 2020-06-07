@@ -7,7 +7,7 @@
       </b-button>
       <b-button class="float-sm-right" @click='handleRSSClick'>
         <span v-if="!changeView">Show RSS feed</span>
-        <span v-else>Back to Search</span>
+        <span v-else>Back to search</span>
       </b-button>
       <b-button class="float-sm-right" @click="handleUserLogout" variant="primary">Logout!</b-button>
 
@@ -65,6 +65,7 @@ export default {
     },
     handleChangeFormClick: function() {
       this.changeView = !this.changeView;
+      this.showRssFeed = false;
     },
     handleUserLogout: function() { 
       localStorage.removeItem("spa-pwa-project")
