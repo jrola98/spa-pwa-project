@@ -17,21 +17,14 @@
     <div v-else>
       <FavoriteUsers />
     </div>
-    <div v-if="!changeView && favUsersKata.length">
-      <FavUsersKata
-        :favUsersKata="this.favUsersKata"
-      />
-    </div>
   </div>
 </template>
 
 <script>
-import firebase from 'firebase';
 import SearchUser from './SearchUser';
 import Loader from './Loader';
 import User from './User';
 import FavoriteUsers from './FavoriteUsers';
-import FavUsersKata from './FavUsersKata';
 
 export default {
   name: 'HomePage',
@@ -39,15 +32,13 @@ export default {
     changeView: false,
     showFavoritesUsers: false,
     isLoading: false,
-    userData: {},
-    favUsersKata: []
+    userData: {}
   }),
   components: {
     SearchUser,
     Loader,
     User,
-    FavoriteUsers,
-    FavUsersKata
+    FavoriteUsers
   },
   props: {
     setUserSession: Function
@@ -70,34 +61,6 @@ export default {
           this.isLoading = false;
         })
     },
-    getUsersKata: async function () {
-        const db = firebase.firestore();
-        const appUser = localStorage.getItem('spa-pwa-project');
-        const dbRef = db.collection(appUser);
-        const favUsersKata = this.favUsersKata;
-
-        this.isLoading = true;
-        await dbRef.get()
-          .then(function (querySnapshot) {
-            querySnapshot.forEach(async function (doc) {
-              if (doc.data().username) {
-              await fetch(`https://cors-anywhere.herokuapp.com/https://www.codewars.com/api/v1/users/${doc.data().username}/code-challenges/completed?page=0`)
-                  .then(res => res.json())
-                  .then(res => {
-                    favUsersKata.push({
-                      username: doc.data().username,
-                      kata: res.data[0]
-                    })
-                  })
-              }
-            });
-          })
-          .catch(er => console.log(er))
-        this.isLoading = false;
-      }
-  },
-  mounted: function() {
-    this.getUsersKata();
   }
 }
 </script>

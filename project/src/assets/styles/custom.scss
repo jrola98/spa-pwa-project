@@ -1,0 +1,44 @@
+//Override
+$red: #b32;
+$grey: #222;
+
+$primary: $red;
+$secondary: $grey;
+
+nav {
+    min-height: 60px;
+}
+p {
+    padding: 0 0 3px 0;
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 20px;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    font-variant: normal;
+}
+
+html {
+    background-color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .login {
+    min-width: 30px;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  
+  .reddish {
+    margin: 2vh;
+  }
+  
+  #landingPage {
+    background: #333;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #b32;
+    margin-top: 60px;
+  }
