@@ -3,7 +3,7 @@
     <h5>NewsFeed: </h5>
     <div style="display: flex; justify-content: space-between; margin: 0 auto 20px;" class="col-12 col-sm-8 col-lg-6 p-0 pb-5r" v-for="userKata in favUsersKata" :key="userKata.username">
         <p style="margin-bottom: 0">{{userKata.username}}</p>
-        <b-button @click="getKata(userKata.kata.slug)">
+        <b-button @click="getKata(userKata.kata.slug)" class="katabutton">
                 {{userKata.kata.name}}
         </b-button>
     </div>
@@ -83,9 +83,18 @@ export default {
 </script>
 
 <style lang="scss">
+  .katabutton {
+    @media screen and (max-width: 768px){
+      max-width: 150px;
+    }
+
+    @media screen and (min-width: 768px){
+      max-width: 450px;
+    }
+  }
+
   p {
     font-size: 10px;
-    
   }
 
   .username {

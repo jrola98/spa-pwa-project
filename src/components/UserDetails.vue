@@ -2,6 +2,11 @@
   <div>
     <Loader v-if="isLoading" />
     <div class="UserDetails" v-else>
+      <div style="display: flex; justify-content: flex-end; padding-right: 20px; padding-top: 20px">
+        <b-button @click="this.backCallback">
+          X
+        </b-button>
+      </div>
       <div class="box">
         <div>
           <p>Username: {{this.userDetails.username}}</p>
@@ -23,9 +28,6 @@
         </ul>
         </div>
       </div>
-      <b-button @click="this.backCallback">
-        Get back to favourite users!
-      </b-button>
     </div>
   </div>
 </template>
@@ -68,9 +70,10 @@ export default {
 
 <style lang="scss">
   .UserDetails {
+    overflow: scroll;
     background-color: #333;
-    position: absolute;
-    top: 100px;
+    position: fixed;
+    top: 0;
     left: 0;  
     width: 100%;
     height: 100%;

@@ -9,7 +9,7 @@
         </b-form-group>
         <b-button class="reddish" @click="this.saveUserData" variant="primary">Save data!</b-button>
       </b-form>
-      <div v-else class="col-12 col-sm-8 col-lg-3 m-auto p-3 shadow-lg overflow-hidden containsUsers">
+      <div v-else class="col-12 col-sm-10 col-lg-6 m-auto p-3 shadow-lg overflow-hidden containsUsers">
         <div class="float-left">
           <h1>Username:</h1>
           <p>{{ userOne.username }}</p>

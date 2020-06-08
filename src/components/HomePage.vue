@@ -5,9 +5,8 @@
         <span v-if="!changeView">Show Favorites</span>
         <span v-else>Back to Search</span>
       </b-button>
-      <b-button class="float-sm-right" @click='handleRSSClick'>
-        <span v-if="!changeView">Show RSS feed</span>
-        <span v-else>Back to Search</span>
+      <b-button v-if="!changeView" class="float-sm-right" @click='handleRSSClick'>
+        <span>Show RSS feed</span>
       </b-button>
       <b-button class="float-sm-right" @click="handleUserLogout" variant="primary">Logout!</b-button>
 
@@ -20,7 +19,7 @@
         :userData="this.userData"/>
     </div>
     <div v-else-if="showRssFeed">
-      <RssFeed />
+      <RssFeed :backCallback="this.handleRssBackClick" />
     </div>
     <div v-else>
       <FavoriteUsers />
@@ -64,13 +63,18 @@ export default {
     setUserSession: Function
   },
   methods: {
+    handleRssBackClick: function() {
+      this.showRssFeed = false;
+      this.changeView = false;
+      this.showFavoritesUsers = false;
+    },
     handleRSSClick: function() {
       this.showRssFeed = !this.showRssFeed;
       this.changeView = !this.changeView;
-      console.log(this.showRssFeed)
     },
     handleChangeFormClick: function() {
       this.changeView = !this.changeView;
+      this.showRssFeed = false;
     },
     handleUserLogout: function() { 
       localStorage.removeItem("spa-pwa-project")

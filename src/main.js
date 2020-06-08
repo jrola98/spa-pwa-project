@@ -6,10 +6,10 @@ import App from './App.vue';
 import firebase from 'firebase';
 import { firebaseConfig } from './config';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUserEdit, faUserTimes } from '@fortawesome/free-solid-svg-icons';
+import { faUserEdit, faUserTimes, faEquals } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-library.add(faUserEdit, faUserTimes)
+library.add(faUserEdit, faUserTimes, faEquals)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false

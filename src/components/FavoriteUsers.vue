@@ -40,7 +40,7 @@
             </div>
             <div>
               <b-button @click="handleCompareClick(user.username)">
-                Compare with your account
+                <font-awesome-icon icon="equals" />
               </b-button>
             </div>
           </div>
@@ -201,7 +201,7 @@
       margin: 10px;
     }
     
-    @media screen and (max-width: 576px) { 
+    @media screen and (max-width: 768px) { 
       flex-direction: column;
       max-width: 70vw;
       margin: 0 auto;

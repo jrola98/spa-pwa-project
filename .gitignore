@@ -23,3 +23,4 @@ node_modules
 /src/config.js
 
 /*.7z
+/project
