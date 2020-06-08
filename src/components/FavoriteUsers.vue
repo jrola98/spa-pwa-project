@@ -28,16 +28,21 @@
             <p>{{user.honor}}</p>
           </div>
           <div class="buttons">
-          <div>
-            <b-button variant="primary" @click="removeUsersFromFavorites(user.username)">
-              <font-awesome-icon icon="user-times" />
-            </b-button>
-          </div>
-          <div>
-            <b-button @click="setEditUserImage(user.username)">
-              <font-awesome-icon icon="user-edit" />
-            </b-button>
-          </div>
+            <div>
+              <b-button variant="primary" @click="removeUsersFromFavorites(user.username)">
+                <font-awesome-icon icon="user-times" />
+              </b-button>
+            </div>
+            <div>
+              <b-button @click="setEditUserImage(user.username)">
+                <font-awesome-icon icon="user-edit" />
+              </b-button>
+            </div>
+            <div>
+              <b-button @click="handleCompareClick(user.username)">
+                Compare with your account
+              </b-button>
+            </div>
           </div>
         </b-row>
       </b-container>
@@ -48,6 +53,13 @@
         :changeView='this.setEditUserImageView'
       />
     </div>
+    <div v-if="this.compareToUser">
+      <CompareToUser 
+        :userToCompare='this.focusedUser'
+        :backCallback='this.handleCompareToView'
+      />
+    </div>
+    
     <div v-if="showUserDetails">
       <UserDetails 
         :user="this.focusedUser"
@@ -60,6 +72,7 @@
 <script>
   import Loader from './Loader';
   import EditUserImage from './EditUserImage';
+  import CompareToUser from './CompareToUser';
   import Modal from './Modal';
   import UserDetails from './UserDetails';
   import firebase from 'firebase';
@@ -72,12 +85,14 @@
       changeView: false,
       isLoading: false,
       editUser: false,
+      compareToUser: false,
       showGraph: false,
       showUserDetails: false,
     }),
     components: {
       Loader,
       EditUserImage,
+      CompareToUser,
       UserDetails,
       Modal
     },
@@ -94,6 +109,13 @@
       },
       showGraphModal: function() {
         this.showGraph = !this.showGraph;
+      },
+      handleCompareClick: function(user) {
+        this.focusedUser = user;
+        this.handleCompareToView();
+      },
+      handleCompareToView: function () {
+        this.compareToUser = !this.compareToUser;
       },
       getFavoriteUsers: async function () {
         const users = this.users;
@@ -113,10 +135,12 @@
                   url => url,
                   () => `https://robohash.org/${doc.data().username}?set=set3`
                 );
-              users.push({
-                ...doc.data(),
-                image: imageRef
+              if (doc.data().username) {
+                users.push({
+                  ...doc.data(),
+                  image: imageRef
                 })
+              }
             });
           })
           .catch(er => console.log(er))
@@ -130,10 +154,8 @@
         dbRef.doc(user).delete()
           .then(alert("User deleted"))
           .catch(er => console.log(er))
-        this.users.map(x=> console.log(x.username, 'before'))
         const index = this.users.findIndex(item => item.username === user);
         this.users.splice(index, 1);
-        this.users.map(x=> console.log(x.username, 'after'))
         this.isLoading = false;
       },
       setEditUserImageView: async function () {
